@@ -1,3 +1,4 @@
+/*
 const FetchConsumo = (idDevice) => {
     const options = {
         mode: 'cors',
@@ -14,3 +15,5 @@ const FetchConsumo = (idDevice) => {
 }
 
 export default FetchConsumo
+
+*/

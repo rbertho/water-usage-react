@@ -21,7 +21,7 @@ const BuscaConsumo = (idDevice, month) => {
 const carregaLista = (json, selectedMonth) => {
     console.log(json)
     let selectedItens = 0
-    const lista = document.querySelector("div.lista")
+    const lista = document.querySelector("div.table")
     lista.innerHTML = ""
     let item = document.createElement("div")
     item.classList.add("tableHeader")
@@ -31,7 +31,7 @@ const carregaLista = (json, selectedMonth) => {
     var totalMonthAmout = 0  
     json.forEach(element => {
       let item = document.createElement("div")
-      item.classList.add("item")
+      item.classList.add("row")
   
       let consumptionMonth = new Date(element.create_time).getMonth()+1
   
@@ -48,7 +48,7 @@ const carregaLista = (json, selectedMonth) => {
   
     if(selectedItens>0) {
       let total = document.createElement("div")
-      total.classList.add("total")
+      total.classList.add("tableFooter")
       total.innerHTML = `<div className='columnBox'>Total</div><div className='columnBox'>${totalMonthAmout.toFixed(2)}</div>`
       lista.appendChild(total)
     }
@@ -58,26 +58,48 @@ const carregaLista = (json, selectedMonth) => {
   
     if(selectedItens>0) {
         //------------------------ CHART -------------------------------
-
-        var data = [["dia", "consumo"]]
+        var data = [[0,0]]
         json.forEach(element => {
             let consumptionMonth = new Date(element.create_time).getMonth()+1
             if(parseInt(consumptionMonth)===parseInt(selectedMonth)){
                 data.push([[new Date(element.create_time).getDate(), parseFloat(element.consumption_amount)]])
             }
         })
-
         console.log(data)
+        const options = {
+          title: "Consumo por dia",
+        };
+        
+        // Load the Visualization API and the corechart package.
+        google.charts.load('current', {'packages':['corechart']});
 
+        // Set a callback to run when the Google Visualization API is loaded.
+        google.charts.setOnLoadCallback(drawChart(data));
 
-          const options = {
-            title: "My Daily Activities",
-          };
-
-         return `<Chart chartType="BarChart" data={data} options={options} width={"500"} height={"400"} />`
-          
+         
       }
   
+  }
+
+  function drawChart(result) {
+    // Create the data table.
+    var chartData = new google.visualization.DataTable();
+    chartData.addColumn('number', 'Dia');
+    chartData.addColumn('number', 'M³');
+
+    result.forEach(element => {
+      console.log('BBBBB: ' + element[0][0])
+      chartData.addRows([[element[0][0], element[0][1]]])
+    });
+
+    // Set chart options
+    var options = {'title':'Consumo por dia',
+                  'width':600,
+                  'height':300};
+
+    // Instantiate and draw our chart, passing in some options.
+    var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+    chart.draw(chartData, options);
   }
 
 export default BuscaConsumo

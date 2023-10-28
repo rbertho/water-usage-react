@@ -12,16 +12,16 @@ const FormConsumo = ({idDevice, setIdDevice}) => {
                 <option value="8">Agosto</option>
               </select>
               
-              <div className="lista">
-              <div className="tableHeader">
-                  <div className='columnBox'>Dia do mês</div>
-                  <div className='columnBox'>Consumo</div>
-                </div>
-              </div>
+              <div className="table">
+                  <div className="tableHeader">
+                      <div className='columnBox'>Dia do mês</div>
+                      <div className='columnBox'>Consumo</div>
+                    </div>
+                  </div>
 
-              <div className="chart">
+                  <div id="chart_div" className='chart'>
 
-              </div>
+                  </div>
             </div>
           </div>
         </div>

@@ -32,10 +32,10 @@ form button {
   color: white;
 }
 
-div.lista {
-  margin-top: 10px;
+div.table {
+  margin-top: 5px;
   padding: 5px;
-  align-items: start;
+
 }
 
 .div.columnBox {
@@ -46,7 +46,7 @@ div.lista {
   width: 1510;
 }
 
-div.item {
+div.row {
   padding: 5px;
   padding-left: 10%;
   padding-right: 15%;
@@ -62,8 +62,8 @@ div.item {
 div.tableHeader {
   padding: 5px;
   padding-left: 10%;
-  padding-right: 10%;
-  width: 80%;
+  padding-right: 11%;
+  width: 79%;
   border-bottom: 1px solid cornflowerblue;
   align-items: start;
   margin-top: 3px;
@@ -85,11 +85,11 @@ div.error {
   color: crimson;
 }
 
-div.total {
+div.tableFooter {
   padding: 5px;
-  padding-left: 8%;
-  padding-right: 13%;
-  width: 79%;
+  padding-left: 10%;
+  padding-right: 15%;
+  width: 75%;
   border-bottom: 1px solid cornflowerblue;
   align-items: start;
   margin-top: 3px;
@@ -120,4 +120,9 @@ select.month {
   font-weight: bold;
   padding-right: 30px;
   
+}
+
+div.chart {
+  padding: 3px;  
+  align-self: center;
 }
