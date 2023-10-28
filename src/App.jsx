@@ -3,8 +3,6 @@ import { useEffect } from 'react'
 import FormRenter from './components/FormRenter'
 import LoadRentDetails from './components/LoadRentDetails'
 import FormConsumo from './components/FormConsumo'
-import ChartConsumo from './components/ChartConsumo'
-
 
 import './App.css'
 
@@ -24,9 +22,6 @@ function App() {
       </div>
       <div>
         <FormConsumo idDevice={idDevice} setIdDevice={setIdDevice} />
-      </div>
-      <div>
-        <ChartConsumo />
       </div>
     </>
   )

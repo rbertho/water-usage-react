@@ -123,6 +123,5 @@ select.month {
 }
 
 div.chart {
-  padding: 3px;  
-  align-self: center;
+  padding: -133px;  
 }
