@@ -75,29 +75,22 @@ const carregaLista = (json, selectedMonth) => {
 
         // Set a callback to run when the Google Visualization API is loaded.
         google.charts.setOnLoadCallback(drawChart(data));
-
-         
       }
-  
   }
 
   function drawChart(result) {
-    // Create the data table.
     var chartData = new google.visualization.DataTable();
     chartData.addColumn('number', 'Dia');
     chartData.addColumn('number', 'M³');
 
     result.forEach(element => {
-      console.log('BBBBB: ' + element[0][0])
       chartData.addRows([[element[0][0], element[0][1]]])
     });
 
-    // Set chart options
     var options = {'title':'Consumo por dia',
-                  'width':600,
+                  'width':500,
                   'height':300};
 
-    // Instantiate and draw our chart, passing in some options.
     var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
     chart.draw(chartData, options);
   }
