@@ -2,12 +2,7 @@ const FormRenter = () => {
     return (
       <form id="form-renter">
         <div>
-          <input
-            id="renter"
-            type="text"
-            defaultValue="Nome do morador: "
-            className="input-plain-text"
-          />
+          <input id="renter" type="text" defaultValue="Nome do morador: " className="input-plain-text" />
           <input
             id="rentervalue"
             type="text"

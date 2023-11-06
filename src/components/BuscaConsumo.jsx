@@ -1,3 +1,5 @@
+import ApexCharts from 'apexcharts'
+
 const BuscaConsumo = (idDevice, month) => {
     console.log('BuscaConsumo: IdDevice: ' + idDevice)
     console.log('BuscaConsumo: month: ' + month)
@@ -5,7 +7,6 @@ const BuscaConsumo = (idDevice, month) => {
         mode: 'cors',
         cache: 'default'
     }
-
    
     let json = [0]
     try{
@@ -20,7 +21,7 @@ const BuscaConsumo = (idDevice, month) => {
 
 const carregaLista = (json, selectedMonth) => {
     console.log(json)
-    let selectedItens = 0
+    let hasDataToDisplay = false
     const lista = document.querySelector("div.table")
     lista.innerHTML = ""
     let item = document.createElement("div")
@@ -37,7 +38,7 @@ const carregaLista = (json, selectedMonth) => {
   
       if(parseInt(consumptionMonth)===parseInt(selectedMonth)){
         totalMonthAmout += parseFloat(element.consumption_amount)
-        selectedItens++
+        hasDataToDisplay = true
         let consumptionDay = new Date(element.create_time).getDate()+'/'+(consumptionMonth)
         let rowString = `<div className="columnBox">${consumptionDay}</div>`
         rowString += `<div className="columnBox">${element.consumption_amount}</div>`
@@ -46,7 +47,7 @@ const carregaLista = (json, selectedMonth) => {
       }
     })
   
-    if(selectedItens>0) {
+    if(hasDataToDisplay) {
       let total = document.createElement("div")
       total.classList.add("tableFooter")
       total.innerHTML = `<div className='columnBox'>Total</div><div className='columnBox'>${totalMonthAmout.toFixed(2)}</div>`
@@ -56,43 +57,60 @@ const carregaLista = (json, selectedMonth) => {
         lista.innerHTML = `<div class="error">Não foram encontrados registros! </div>`
     }
   
-    if(selectedItens>0) {
-        //------------------------ CHART -------------------------------
-        var data = [[0,0]]
-        json.forEach(element => {
-            let consumptionMonth = new Date(element.create_time).getMonth()+1
-            if(parseInt(consumptionMonth)===parseInt(selectedMonth)){
-                data.push([[new Date(element.create_time).getDate(), parseFloat(element.consumption_amount)]])
-            }
-        })
-        console.log(data)
-        const options = {
-          title: "Consumo por dia",
-        };
-        
-        // Load the Visualization API and the corechart package.
-        google.charts.load('current', {'packages':['corechart']});
-
-        // Set a callback to run when the Google Visualization API is loaded.
-        google.charts.setOnLoadCallback(drawChart(data));
-      }
+    if(hasDataToDisplay>0) {
+        buildChart(json, selectedMonth)
+    }
   }
 
-  function drawChart(result) {
-    var chartData = new google.visualization.DataTable();
-    chartData.addColumn('number', 'Dia');
-    chartData.addColumn('number', 'M³');
+  function buildChart(json, selectedMonth){
+    
+    var data = [[0,0]]
+    json.forEach(element => {
+        let consumptionMonth = new Date(element.create_time).getMonth()+1
+        if(parseInt(consumptionMonth)===parseInt(selectedMonth)){
+            data.push([[new Date(element.create_time).getDate(), parseFloat(element.consumption_amount)]])
+        }
+    })
 
+    drawChart(data, json)
+  }
+
+  
+
+  function drawChart(result, json) {
+    var apexData = [];
+    var apexColumnLabel = [];
     result.forEach(element => {
-      chartData.addRows([[element[0][0], element[0][1]]])
-    });
+      apexData.push(element[0][1])
+      apexColumnLabel.push(element[0][0])
+    })
 
-    var options = {'title':'Consumo por dia',
-                  'width':500,
-                  'height':300};
+    var trash = apexData.shift()
+    trash = apexColumnLabel.shift()
 
-    var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-    chart.draw(chartData, options);
+    console.log('apexData: ' + apexData)
+    console.log('apexColumnLabel: ' + apexColumnLabel)
+    console.log('apexData.length: ' + apexData.length)
+    console.log('cccc22: ' + apexColumnLabel.length)
+
+    console.log('ccccc3: ' + json)
+
+    var apexOptions = {
+      chart: {
+        type: 'bar'
+      },
+      series: [{
+        name: 'Consume',
+        data: apexData
+      }],
+      xaxis: {
+        categories: apexColumnLabel
+      }
+    }
+    
+    var apexChart = new ApexCharts(document.querySelector("#chart"), apexOptions);
+    apexChart.render();
+   
   }
 
 export default BuscaConsumo
