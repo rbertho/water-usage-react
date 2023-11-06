@@ -1,130 +1,8 @@
-/*
-
-import { useState } from 'react'
-import { useEffect } from 'react'
-
-import React, { Component } from "react"
-import Chart from "react-apexcharts";
-
-import FormRenter from './components/FormRenter'
-import LoadRentDetails from './components/LoadRentDetails'
-import FormConsumo from './components/FormConsumo'
-
-import './App.css'
-
-
-function App() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const [idDevice, setIdDevice] = useState(urlParams.get('id_device'))
-
-  const [optionsMixedChart, setOptionsMixedChart] = useState(
-    {
-      chart: {
-        id: "basic-bar",
-        toolbar: {
-          show: false
-        }
-      },
-     
-      stroke: {
-        width: [1, 0, 0]
-      },
-      xaxis: {
-        categories: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-      },
-     
-      yaxis: {
-        tickAmount: 5,
-        min: 0,
-        max: 100
-      }
-    }
-  )
-  const [seriesMixedChart, setSeriesMixedChart] = useState(
-    [
-      {
-        name: "series-3",
-        type: "column",
-        data: [62, 12, 45, 55, 76, 41, 23, 43]
-      }
-    ]
-  )
-  
-
-  useEffect(() => {
-    LoadRentDetails(idDevice);
-  }, []);
-
-  
-  /*
-  function toggleChartVisibility(chartDivName) {
-    var x = document.getElementById(chartDivName);
-    if (x.style.display === "none") {
-      x.style.display = "block";
-    } else {
-      x.style.display = "none";
-    }
-  }
-
-  function updateCharts() {
-    console.log('chamou update charts!')
-    
-   
-    /*
-    const max = 90;
-    const min = 10;
-    const newMixedSeries = [];
-  
-    seriesMixedChart.forEach((s) => {
-      const data = s.data.map(() => {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-      });
-      newMixedSeries.push({ data: data, type: s.type });
-    })
-  
-    setSeriesMixedChart(newMixedSeries)
-
-  }
-
-  return (
-    <>
-      <div>
-        <h1 className="title">Smart Water</h1>
-        <FormRenter />
-      </div>
-      <div>
-        <FormConsumo idDevice={idDevice} setIdDevice={setIdDevice} />
-      </div>
-      <div id="chart">
-      </div>
-
-      <div className="app">
-        <div className="rowchart">
-          <div className="col mixed-chart" id="mix">
-            <Chart
-              options={optionsMixedChart}
-              series={seriesMixedChart}
-              type="line"
-              width="500"
-            />
-          </div>
-        </div>
-        <div className="row">
-          <p className="col">
-            <button onClick={updateCharts()}>Update!</button>
-          </p>
-        </div>
-      </div>
-    </>
-  )
-}
-
-export default App;
-*/
-
 import React, { useState, useEffect } from 'react';
 import Chart from 'react-apexcharts';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import { makeStyles } from '@mui/material/styles';
+import './App.css';
 
 function App() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -234,6 +112,7 @@ function App() {
   }, [selectedMonth]);
 
   toggleChartVisibility('chart-div', hasData)
+  toggleChartVisibility('table-div', hasData)
 
 
 
