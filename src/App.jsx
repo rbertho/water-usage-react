@@ -149,7 +149,7 @@ function App() {
                   label={'Selecione o mês e o ano: '} 
                   views={['month', 'year']} 
                   onYearChange={handleDatePickerChange} 
-                  onClose={handleDatePickerChange}
+                  onAccept={handleDatePickerChange}
                   defaultValue={dayjs(new Date())}
                 />
               </DemoContainer>
