@@ -20,11 +20,11 @@ function App() {
   const [selectedMonth, setSelectedMonth] = useState('');
   const [hasData, setHasData] = useState(true);
 
-  const [singleValue, setSingleValue] = useState({year: 2023, month: 9}, {year: 2023, month: 10})
-
+  /*
   const handleMonthChange = (event) => {
     setSelectedMonth(event.target.value);
   };
+  */
 
   const handleDatePickerChange = (date) => {
     const selectedMonth = date.$M +1;
@@ -67,7 +67,6 @@ function App() {
 
   function toggleChartVisibility(chartDivName, showChart) {
     var x = document.getElementById(chartDivName);
-
     console.log('showChart: ' + showChart)
     try {
       if (showChart) {
@@ -75,10 +74,7 @@ function App() {
       } else {
         x.style.display = "none";
       }
-    } catch (error) {
-      
-    }
-  
+    } catch (error) { }
   }
 
   useEffect(() => {
@@ -153,6 +149,7 @@ function App() {
                   label={'Selecione o mês e o ano: '} 
                   views={['month', 'year']} 
                   onYearChange={handleDatePickerChange} 
+                  onClose={handleDatePickerChange}
                   defaultValue={dayjs(new Date())}
                 />
               </DemoContainer>
