@@ -30,10 +30,8 @@ div.userSection {
 }
 
 form {
-  margin: 10px;
-  padding: 10px;
-  border: 1px solid #333;
-  border-radius: 10px;
+  margin: 5px;
+  padding: 5px;
   display: flex;
 }
 
@@ -86,6 +84,21 @@ div.tableHeader {
   justify-content: space-between;
 }
 
+#renter-value {
+  font-family:  Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: #333;
+}
+
+#render-details {
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #dadada;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: 2px solid rgba(0, 0, 0, 0.1);
+}
+
 div.item:hover {
   background-color: cornflowerblue;
   font-weight: 600;
@@ -94,6 +107,15 @@ div.item:hover {
 div.error {
   font-size: larger;
   color: crimson;
+}
+
+select-div {
+  margin: 5px;
+  padding: 50px;
+  border: 1px solid #333;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
 }
 
 div.tableFooter {
@@ -114,16 +136,17 @@ div.tableFooter {
 
 input.input-plain-text {
   border: none;
-  font-weight: 700;
+  font-weight: 600;
   font-family: Arial, Helvetica, sans-serif;
   font-size: larger;
 }
 
 input.input-plain-value {
   border: none;
-  font-weight: 400;
+  font-weight: 600;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: larger;
+  font-size: medium;
+  background-color: #dadada;
 }
 
 select.month {
