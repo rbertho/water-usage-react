@@ -1,39 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import Chart from 'react-apexcharts';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableFooter, Paper } from '@mui/material';
-import './App.css';
-import FormRenter from './components/FormRenter';
-import LoadRentDetails from './components/LoadRentDetails';
-
-
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 
+import FormRenter from './components/FormRenter';
+import LoadRentDetails from './components/LoadRentDetails';
+
+import './App.css';
 
 function App() {
   const urlParams = new URLSearchParams(window.location.search);
   const [idDevice, setIdDevice] = useState(urlParams.get('id_device'))
-
   const [selectedMonth, setSelectedMonth] = useState('');
   const [hasData, setHasData] = useState(true);
-
-  /*
-  const handleMonthChange = (event) => {
-    setSelectedMonth(event.target.value);
-  };
-  */
-
-  const handleDatePickerChange = (date) => {
-    const selectedMonth = date.$M +1;
-    const selectedYear = date.$y;
-    console.log(selectedMonth, ' - ', selectedYear);
-
-    setSelectedMonth(selectedMonth);
-  };
-
   const [chartData, setChartData] = useState({
     options: {
       chart: {
@@ -59,6 +42,22 @@ function App() {
       }
     }
   })
+
+  /*
+  const handleMonthChange = (event) => {
+    setSelectedMonth(event.target.value);
+  };
+  */
+
+  const handleDatePickerChange = (date) => {
+    const selectedMonth = date.$M +1;
+    const selectedYear = date.$y;
+    console.log(selectedMonth, ' - ', selectedYear);
+
+    setSelectedMonth(selectedMonth);
+  };
+
+
 
   const options = {
     mode: 'cors',
@@ -93,7 +92,6 @@ function App() {
         // Atualiza se tem dados para exibir
         setHasData(data.length>0)
         console.log('>> ' + data.length)
-
         setChartData({
           options: {
             ...chartData.options,
@@ -136,7 +134,7 @@ function App() {
 
   return (
     <div className="app">
-      <div id='render-details'>
+      <div id='renter-details'>
         <FormRenter idDevice={idDevice} setIdDevice={setIdDevice} />
       </div>
       <div>
@@ -156,42 +154,42 @@ function App() {
             </LocalizationProvider>
       </div>
       <div id='chart-div'>
-        <Chart
-          options={chartData.options}
-          series={chartData.series}
-          title={chartData.title}
-          type="bar"
-          width="90%"
-          height="500"
-        />
+          <Chart
+            options={chartData.options}
+            series={chartData.series}
+            title={chartData.title}
+            type="bar"
+            width="90%"
+            height="400"
+          />
       </div>
       <div id='table-div'>
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Dia</TableCell>
-              <TableCell align="right">Consumo</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {chartData.series[0].data.map((value, index) => (
-              <TableRow key={index}>
-                <TableCell component="th" scope="row">
-                  {chartData.options.xaxis.categories[index]}
-                </TableCell>
-                <TableCell align="right">{value}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-          <TableFooter>
-              <TableRow>
-                <TableCell>Total consumido no mês</TableCell>
-                <TableCell align="right">{totalConsumed.toFixed(2)}</TableCell>
-              </TableRow>
-            </TableFooter>
-        </Table>
-      </TableContainer>
+          <TableContainer component={Paper}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Dia</TableCell>
+                  <TableCell align="right">Consumo</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {chartData.series[0].data.map((value, index) => (
+                  <TableRow key={index}>
+                    <TableCell component="th" scope="row">
+                      {chartData.options.xaxis.categories[index]}
+                    </TableCell>
+                    <TableCell align="right">{value}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+              <TableFooter>
+                  <TableRow>
+                    <TableCell>Total consumido no mês</TableCell>
+                    <TableCell align="right">{totalConsumed.toFixed(2)}</TableCell>
+                  </TableRow>
+                </TableFooter>
+            </Table>
+          </TableContainer>
     </div>
     </div>
   );
