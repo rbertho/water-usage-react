@@ -55,6 +55,15 @@ div.table {
   width: 1510;
 }
 
+form.formrenter {
+  margin: 5px;
+  padding: 5px;
+  display: flex;
+  background-color: #dadada;
+  border-radius: 5px ;
+  border: 1px solid 222222;
+}
+
 div.row {
   padding: 5px;
   padding-left: 10%;

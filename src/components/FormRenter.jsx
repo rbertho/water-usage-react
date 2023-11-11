@@ -3,7 +3,7 @@ import '../App.css';
 
 const FormRenter = () => {
   return (
-    <form id="form-renter">
+    <form id="form-renter" className='formrenter'>
       <Box display="flex" flexDirection="column"
         gap={2}
       >
