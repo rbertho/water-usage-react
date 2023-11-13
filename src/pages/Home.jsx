@@ -145,7 +145,7 @@ function Home() {
                 <a className="nav-link" href="#">Perfil</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/about">About</a>
+                <a className="nav-link" href="./about">About</a>
               </li>
         </ul>
       </div>
