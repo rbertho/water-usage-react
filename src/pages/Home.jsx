@@ -11,7 +11,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import FormRenter from '../components/FormRenter';
-import LoadRentDetails from '../components/LoadRentDetails';
+import NavMenu from '../components/NavMenu';
 
 import '../App.css';
 
@@ -134,20 +134,7 @@ function Home() {
         <FormRenter />
       </div>
       <div id='nav-menu'>
-          <ul className="nav nav-tabs justify-content-center">
-              <li className="nav-item">
-                <a className="nav-link active" href="#">Diário</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">Mensal</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">Perfil</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="./about">About</a>
-              </li>
-        </ul>
+          <NavMenu />
       </div>
       <div id="select-div" className='d-inline-flex p-2 bd-highlight'>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
