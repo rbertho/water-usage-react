@@ -1,20 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import Chart from 'react-apexcharts';
+import dayjs from 'dayjs';
+import Cookies from 'js-cookie'
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableFooter, Paper } from '@mui/material';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import dayjs from 'dayjs';
 
-import FormRenter from './components/FormRenter';
-import LoadRentDetails from './components/LoadRentDetails';
+import FormRenter from '../components/FormRenter';
+import LoadRentDetails from '../components/LoadRentDetails';
 
-import './App.css';
+import '../App.css';
 
-function App() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const [idDevice, setIdDevice] = useState(urlParams.get('id_device'))
+function Home() {
+  const [idDevice, setIdDevice] = useState(Cookies.get('id_device'))
+  if (idDevice == null) {
+    logout();
+  }
+
+  function logout(){
+    console.log('Logout')
+    Cookies.remove('access_token')
+    Cookies.remove('id_device')
+    window.location.reload()
+  }
+
   const [selectedMonth, setSelectedMonth] = useState('');
   const [hasData, setHasData] = useState(true);
   const [chartData, setChartData] = useState({
@@ -43,12 +56,6 @@ function App() {
     }
   })
 
-  /*
-  const handleMonthChange = (event) => {
-    setSelectedMonth(event.target.value);
-  };
-  */
-
   const handleDatePickerChange = (date) => {
     const selectedMonth = date.$M +1;
     const selectedYear = date.$y;
@@ -57,8 +64,6 @@ function App() {
     setSelectedMonth(selectedMonth);
   };
 
-
-
   const options = {
     mode: 'cors',
     cache: 'default'
@@ -66,7 +71,6 @@ function App() {
 
   function toggleChartVisibility(chartDivName, showChart) {
     var x = document.getElementById(chartDivName);
-    console.log('showChart: ' + showChart)
     try {
       if (showChart) {
         x.style.display = "block";
@@ -77,51 +81,43 @@ function App() {
   }
 
   useEffect(() => {
-    LoadRentDetails(idDevice);
-  }, []);
-
-  useEffect(() => {
     fetch(`https://smart-water-rodrigos-projects-f9ec54f8.vercel.app/consumptionsByDevice?id_device=${idDevice}`, options)
       .then(result => result.json())
       .then(json => json.filter(item => new Date(item.create_time).getMonth() + 1 === parseInt(selectedMonth)))
       .then(json => {
-
-        let categories = json.map(filteredData =>  new Date(filteredData.create_time).getDate());
-        let data = json.map(filteredData => filteredData.consumption_amount);
-
-        // Atualiza se tem dados para exibir
-        setHasData(data.length>0)
-        console.log('>> ' + data.length)
-        setChartData({
-          options: {
-            ...chartData.options,
-            xaxis: {
-              categories: categories
+          let categories = json.map(filteredData =>  new Date(filteredData.create_time).getDate());
+          let data = json.map(filteredData => filteredData.consumption_amount);
+          setHasData(data.length>0)
+          setChartData({
+            options: {
+              ...chartData.options,
+              xaxis: {
+                categories: categories
+              },
+              dataLabels: {
+                enabled: false,
+                position: 'bottom', // top, center, bottom
+              },
+              legend: {
+                show: true, // habilita a legenda
+                
+              },
             },
-            dataLabels: {
-              enabled: false,
-              position: 'bottom', // top, center, bottom
-            },
-            legend: {
-              show: true, // habilita a legenda
-              
-            },
-          },
-          series: [
-            {
-              name: 'Consumo',
-              data: data
+            series: [
+              {
+                name: 'Consumo',
+                data: data
+              }
+            ],
+            title: {
+              text: 'Consumo diário em M³',
+              floating: true,
+              offsetY: 330,
+              align: 'center',
+              style: {
+                color: '#444'
+              }
             }
-          ],
-          title: {
-            text: 'Consumo diário em M³',
-            floating: true,
-            offsetY: 330,
-            align: 'center',
-            style: {
-              color: '#444'
-            }
-          }
         });
       })
       .catch(error => console.error(error));
@@ -135,12 +131,25 @@ function App() {
   return (
     <div className="app">
       <div id='renter-details'>
-        <FormRenter idDevice={idDevice} setIdDevice={setIdDevice} />
+        <FormRenter />
       </div>
-      <div>
-        <hr />
+      <div id='nav-menu'>
+          <ul className="nav nav-tabs justify-content-center">
+              <li className="nav-item">
+                <a className="nav-link active" href="#">Diário</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="#">Mensal</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="#">Perfil</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="/about">About</a>
+              </li>
+        </ul>
       </div>
-      <div id="select-div">
+      <div id="select-div" className='d-inline-flex p-2 bd-highlight'>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DemoContainer components={['DatePicker']}>
                 <DatePicker 
@@ -153,7 +162,7 @@ function App() {
               </DemoContainer>
             </LocalizationProvider>
       </div>
-      <div id='chart-div'>
+      <div id='chart-div' className='chartDiv'>
           <Chart
             options={chartData.options}
             series={chartData.series}
@@ -195,22 +204,4 @@ function App() {
   );
 }
 
-export default App;
-
-/*
-    <select value={selectedMonth} onChange={handleMonthChange}>
-          <option value="">Selecione o mês para ver o gráfico</option>
-          <option value="1">Janeiro</option>
-          <option value="2">Fevereiro</option>
-          <option value="3">Março</option>
-          <option value="4">Abril</option>
-          <option value="5">Maio</option>
-          <option value="6">Junho</option>
-          <option value="7">Julho</option>
-          <option value="8">Agosto</option>
-          <option value="9">Setembro</option>
-          <option value="10">Outubro</option>
-          <option value="11">Novembro</option>
-          <option value="12">Dezembro</option>
-        </select>
-*/ 
+export default Home;

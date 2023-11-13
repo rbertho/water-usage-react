@@ -32,13 +32,18 @@ div.userSection {
 form {
   margin: 5px;
   padding: 5px;
-  display: flex;
+
+}
+
+loginform {
+  margin: 5px;
+  padding: 5px;
 }
 
 form button {
   padding: 5px 10px;
   background-color: cornflowerblue;
-  color: white;
+  color: black;
 }
 
 div.table {
@@ -60,7 +65,7 @@ form.formrenter {
   display: flex;
   background-color: #dadada;
   border-radius: 5px ;
-  border: 1px solid 222222;
+  border: 1px solid darkgrey;
 }
 
 div.row {
@@ -97,6 +102,7 @@ div.tableHeader {
   background-color: #333;
 }
 
+/*
 #render-details {
   margin: 10px;
   padding: 10px;
@@ -106,6 +112,7 @@ div.tableHeader {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   border: 2px solid rgba(0, 0, 0, 0.1);
 }
+*/
 
 div.item:hover {
   background-color: cornflowerblue;
@@ -115,15 +122,6 @@ div.item:hover {
 div.error {
   font-size: larger;
   color: crimson;
-}
-
-select-div {
-  margin: 5px;
-  padding: 50px;
-  border: 1px solid #333;
-  border-radius: 10px;
-  display: flex;
-  justify-content: space-between;
 }
 
 div.tableFooter {
@@ -164,4 +162,46 @@ select.month {
   
 }
 
+.errortext {
+    color: rgb(223, 8, 26);
+    font-size: 16px;
+    margin-top: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    text-align: center;
+    vertical-align: bottom;
+    width: 100%;
 
+}
+
+.errordiv {
+    margin-top: 5px;
+    height: 30px;
+    width: 100%;
+    padding: 10px;
+}
+
+.card {
+    background-color: lightgray;
+    width: 350px;
+    padding: 20px;
+}
+
+.btn-about{
+    background-color: transparent;
+    border: none;
+    color: dark-gray;
+    text-decoration: underline;
+    padding: 10px 20px;
+    text-align: center;
+    display: inline-block;
+    font-size: 14px;
+}
+
+
+.chartDiv {
+  margin: 10px;
+  padding: 5px;
+  border: 1px solid darkgrey;
+  border-radius: 5px;
+}

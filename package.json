@@ -17,11 +17,14 @@
     "@mui/x-date-pickers": "^6.18.0",
     "apexcharts": "^3.44.0",
     "axios": "^1.6.0",
+    "bootstrap": "^5.3.2",
     "dayjs": "^1.11.10",
     "emotion": "^11.0.0",
+    "js-cookie": "^3.0.5",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.1",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.18.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
