@@ -10,12 +10,9 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-import FormRenter from '../components/FormRenter';
-import NavMenu from '../components/NavMenu';
-
 import '../App.css';
 
-function Home() {
+function Daily() {
   const [idDevice, setIdDevice] = useState(Cookies.get('id_device'))
   if (idDevice == null) {
     logout();
@@ -130,12 +127,6 @@ function Home() {
 
   return (
     <div className="app">
-      <div id='renter-details'>
-        <FormRenter />
-      </div>
-      <div id='nav-menu'>
-          <NavMenu />
-      </div>
       <div id="select-div" className='d-inline-flex p-2 bd-highlight'>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DemoContainer components={['DatePicker']}>
@@ -186,9 +177,9 @@ function Home() {
                 </TableFooter>
             </Table>
           </TableContainer>
-    </div>
+      </div>
     </div>
   );
 }
 
-export default Home;
+export default Daily;

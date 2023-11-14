@@ -1,15 +1,9 @@
 import FormRenter from "../components/FormRenter";
-import NavMenu from "../components/NavMenu";
+import NavMenu from "../RootPage";
 
 function NotFound() {
     return (
         <div>
-            <div id='renter-details'>
-                <FormRenter />
-            </div>
-            <div id='nav-menu'>
-                <NavMenu />
-            </div>
             <div className="d-flex vh-100 justify-content-center align-items-center bg-light">
                 <div className="p-5 bg-white rounded shadow w-50">
                     <h1 className="mb-3">Not Found!!</h1>

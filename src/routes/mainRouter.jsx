@@ -2,21 +2,19 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { PrivateRoute } from './privateRoute';
 
-import About from '../pages/About';
 import Login from '../pages/Login';
-import Home from '../pages/Home';
 import NotFound from '../pages/notfound';   
+import RootPage from '../RootPage';
 
 const Rotas = () => {
     return (
         <Router>
             <Routes>
-                    <Route path="/about" element={<About />} />
                     <Route 
                         path="/" 
                         element={
                             <PrivateRoute>
-                                <Home />
+                                <RootPage />
                             </PrivateRoute>
                         } />
                     <Route path="/login" element={<Login />} />
