@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 import FormRenter from './components/FormRenter';
 import Daily from './pages/Daily';
 import About from './pages/About';
+import Monthly from './pages/Monthly';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -70,7 +71,9 @@ export default function RootPage() {
               </div>
           </CustomTabPanel>
           <CustomTabPanel value={value} index={1}>
-            Mensal
+             <div id='App'>
+                <Monthly />
+              </div>
           </CustomTabPanel>
           <CustomTabPanel value={value} index={2}>
             Perfil

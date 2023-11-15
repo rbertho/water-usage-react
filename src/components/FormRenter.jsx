@@ -23,11 +23,9 @@ const FormRenter = () => {
   });
 
   return (
-    <div>
-      <button className="btn" onClick={logout}>Logout</button>
-      <form id="form-renter" className="formrenter">
-          <Box display="flex" flexDirection="column" gap={2}>
-              <div id="renter">
+    <div className="renterdetails">
+        <Box display="flex" flexDirection="column" gap={1} >
+            <div id="renter">
                 Morador:{" "}
                 <input
                   id="rentervalue"
@@ -36,8 +34,9 @@ const FormRenter = () => {
                   className="input-plain-value"
                   size={20}
                 />
-              </div>
-              <div id="unit">
+                <button className="btn btn-dark" onClick={logout}>Logout</button>
+            </div>
+            <div id="unit">
                 Unidade:{" "}
                 <input
                   id="unitvalue"
@@ -45,11 +44,16 @@ const FormRenter = () => {
                   defaultValue=""
                   className="input-plain-value"
                 />
-              </div>
-          </Box>
-      </form>
+            </div>
+        </Box>
     </div>
   );
 }
 
 export default FormRenter;
+
+/*
+
+
+      
+*/

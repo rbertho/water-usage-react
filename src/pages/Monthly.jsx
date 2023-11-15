@@ -12,7 +12,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import '../App.css';
 
-function Daily() {
+function Monthly() {
   const [idDevice, setIdDevice] = useState(Cookies.get('id_device'))
   if (idDevice == null) {
     logout();
@@ -25,8 +25,7 @@ function Daily() {
     window.location.reload()
   }
 
-  const [selectedMonth, setSelectedMonth] = useState(0);
-  const [selectedYear, setSelectedYear] = useState(0);
+  const [selectedYear, setSelectedYear] = useState('');
   const [hasData, setHasData] = useState(true);
   const [chartData, setChartData] = useState({
     options: {
@@ -55,8 +54,9 @@ function Daily() {
   })
 
   const handleDatePickerChange = (date) => {
-    setSelectedYear(date.$y)
-    setSelectedMonth(date.$M+1);
+    const selectedYear = date.$y;
+    console.log(selectedYear);
+    setSelectedYear(selectedYear);
   };
 
   const options = {
@@ -76,21 +76,16 @@ function Daily() {
   }
 
   useEffect(() => {
-    // definindo o mês e ano default
-    if(selectedMonth === 0) setSelectedMonth(dayjs(new Date()).$M + 1)
-    if(selectedYear === 0) setSelectedYear(dayjs(new Date()).$y)
-    
-
-    console.log(selectedMonth, ' - ', selectedYear);
-    fetch(`https://smart-water-api.vercel.app/consumptionsByDevice?id_device=${idDevice}`, options)
+    console.log('call fetch monthly')
+    fetch(`https://smart-water-api.vercel.app/consumptionsByMonth?id_device=${idDevice}`, options)
       .then(result => result.json())
-      .then(json => json.filter(item => new Date(item.create_time).getMonth() + 1 === parseInt(selectedMonth)))
-      .then(json => json.filter(item => new Date(item.create_time).getFullYear() === parseInt(selectedYear)))
+   //   .then(json => json.filter(item => new Date(item.create_time).getMonth() + 1 === parseInt(selectedMonth)))
       .then(json => {
-          let categories = json.map(filteredData =>  new Date(filteredData.create_time).getDate());
+        console.log(json)
+          let categories = json.map(filteredData =>  (new Date(filteredData.date_trunc).getMonth())+2);
           let data = json.map(filteredData => filteredData.consumption_amount);
-          console.log(data)
-          console.log(categories)
+          console.log('<< ' + data)
+          console.log('<< ' + categories)
           setHasData(data.length>0)
           setChartData({
             options: {
@@ -125,39 +120,27 @@ function Daily() {
         });
       })
       .catch(error => console.error(error));
-  }, [selectedMonth]);
+  }, [selectedYear]);
 
   toggleChartVisibility('chart-div', hasData)
   toggleChartVisibility('table-div', hasData)
 
   const totalConsumed = chartData.series[0].data.reduce((a, b) => parseFloat(a) + parseFloat(b), 0);
 
-  function setNextMonth() {
-    if(selectedMonth < 12) setSelectedMonth(selectedMonth + 1)
-    else { setSelectedMonth(1); setSelectedYear(selectedYear + 1) }
-  }
-
-  function setPriorMonth() {
-    if(selectedMonth > 1) setSelectedMonth(selectedMonth - 1)
-    else { setSelectedMonth(12); setSelectedYear(selectedYear - 1) }
-  }
-
   return (
     <div className="app">
       <div id="select-div" className='d-inline-flex'>
-            <button className='btn' onClick={setPriorMonth}><h2>&#8592;</h2></button>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DemoContainer components={['DatePicker']}>
                 <DatePicker 
-                  label={'Selecione o mês e o ano: '} 
-                  views={['month', 'year']} 
+                  label={'Selecione o ano: '} 
+                  views={['year']} 
                   onYearChange={handleDatePickerChange} 
                   onAccept={handleDatePickerChange}
                   defaultValue={dayjs(new Date())}
                 />
               </DemoContainer>
             </LocalizationProvider>
-            <button className='btn' onClick={setNextMonth}><h2>&#8594;</h2></button>
       </div>
       <div id='chart-div' className='chartDiv'>
           <Chart
@@ -174,7 +157,7 @@ function Daily() {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Dia</TableCell>
+                  <TableCell>Mês</TableCell>
                   <TableCell align="right">Consumo</TableCell>
                 </TableRow>
               </TableHead>
@@ -190,7 +173,7 @@ function Daily() {
               </TableBody>
               <TableFooter>
                   <TableRow>
-                    <TableCell>Total consumido no mês</TableCell>
+                    <TableCell>Total consumido no ano</TableCell>
                     <TableCell align="right">{totalConsumed.toFixed(2)}</TableCell>
                   </TableRow>
                 </TableFooter>
@@ -201,4 +184,4 @@ function Daily() {
   );
 }
 
-export default Daily;
+export default Monthly;
