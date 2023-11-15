@@ -14,17 +14,6 @@ import '../App.css';
 
 function Monthly() {
   const [idDevice, setIdDevice] = useState(Cookies.get('id_device'))
-  if (idDevice == null) {
-    logout();
-  }
-
-  function logout(){
-    console.log('Logout')
-    Cookies.remove('access_token')
-    Cookies.remove('id_device')
-    window.location.reload()
-  }
-
   const [selectedYear, setSelectedYear] = useState('');
   const [hasData, setHasData] = useState(true);
   const [chartData, setChartData] = useState({
@@ -79,7 +68,7 @@ function Monthly() {
     console.log('call fetch monthly')
     fetch(`https://smart-water-api.vercel.app/consumptionsByMonth?id_device=${idDevice}`, options)
       .then(result => result.json())
-   //   .then(json => json.filter(item => new Date(item.create_time).getMonth() + 1 === parseInt(selectedMonth)))
+      .then(json => json.filter(item => new Date(item.date_trunc).getFullYear() === parseInt(selectedYear)))
       .then(json => {
         console.log(json)
           let categories = json.map(filteredData =>  (new Date(filteredData.date_trunc).getMonth())+2);

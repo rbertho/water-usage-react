@@ -1,5 +1,5 @@
 import FormRenter from "../components/FormRenter";
-import NavMenu from "../RootPage";
+import NavMenu from "../App";
 
 function NotFound() {
     return (

@@ -14,17 +14,6 @@ import '../App.css';
 
 function Daily() {
   const [idDevice, setIdDevice] = useState(Cookies.get('id_device'))
-  if (idDevice == null) {
-    logout();
-  }
-
-  function logout(){
-    console.log('Logout')
-    Cookies.remove('access_token')
-    Cookies.remove('id_device')
-    window.location.reload()
-  }
-
   const [selectedMonth, setSelectedMonth] = useState(0);
   const [selectedYear, setSelectedYear] = useState(0);
   const [hasData, setHasData] = useState(true);

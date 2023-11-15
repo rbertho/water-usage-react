@@ -4,7 +4,7 @@ import { PrivateRoute } from './privateRoute';
 
 import Login from '../pages/Login';
 import NotFound from '../pages/notfound';   
-import RootPage from '../RootPage';
+import App from '../App';
 
 const Rotas = () => {
     return (
@@ -14,7 +14,7 @@ const Rotas = () => {
                         path="/" 
                         element={
                             <PrivateRoute>
-                                <RootPage />
+                                <App />
                             </PrivateRoute>
                         } />
                     <Route path="/login" element={<Login />} />
