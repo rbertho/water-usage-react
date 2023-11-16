@@ -69,7 +69,6 @@ function App() {
   }
 
   return (
-    console.log(idDevice),
     <div className="app">
         <div id='renter-details'>
           <FormRenter />
