@@ -58,7 +58,6 @@ function Daily() {
     } catch (error) { }
   }
 
-
   useEffect(() => {  
     const options = {
       mode: 'cors',

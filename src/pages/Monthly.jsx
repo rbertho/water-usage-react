@@ -74,10 +74,6 @@ function Monthly() {
   }
 
   useEffect(() => {
-
-    dayjs.locale('pt-br');
-    console.log(dayjs(new Date()).$M.toString());
-
     const options = {
       mode: 'cors',
       cache: 'default'

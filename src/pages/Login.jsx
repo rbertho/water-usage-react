@@ -39,7 +39,7 @@ function Login() {
     }
 
     return (
-        <div className='d-flex vh-100 justify-content-center align-items-center bg-primary'>
+        <div className='d-flex vh-100 justify-content-center align-items-center bg-secondary'>
             <div className="card">
                 <form id="loginForm" className="loginform" onSubmit={handleSubmit}>
                     <div className="mb-3">

@@ -169,6 +169,9 @@ select.month {
   background-color: lightgray;
   width: 350px;
   padding: 20px;
+  border-radius: 5px;
+  border: 1px solid #323232;  
+
 }
 
 input.input-plain-text {
