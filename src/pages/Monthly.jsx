@@ -60,8 +60,6 @@ function Monthly() {
     setDatePickerValue(datePickerValue.add(+1, 'year'))
   };
 
-
-
   function toggleChartVisibility(chartDivName, showChart) {
     var x = document.getElementById(chartDivName);
     try {

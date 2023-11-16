@@ -10,12 +10,6 @@ body {
   font: Roboto;
 }
 
-h1.title {
-  background-color: cornflowerblue;
-  color: beige;
-  padding: 10px;
-}
-
 div.userSection {
   margin: 10px;
   padding: 10px;
@@ -27,7 +21,6 @@ div.userSection {
 form {
   margin: 5px;
   padding: 5px;
-
 }
 
 loginform {
@@ -43,6 +36,12 @@ div.table {
 }
 
 /*
+h1.title {
+  background-color: cornflowerblue;
+  color: beige;
+  padding: 10px;
+}
+
 .div.columnBox {
   flex-basis: auto;
   width: 40%;
@@ -91,8 +90,6 @@ div.renterdetails {
   border: 1px solid darkgrey;
 }
 
-
-
 .card {
   background-color: lightgray;
   width: 350px;
@@ -116,7 +113,6 @@ input.input-plain-value {
   font-size: medium;
   background-color: #dadada;
 }
-
 
 .btn-about{
     background-color: transparent;
