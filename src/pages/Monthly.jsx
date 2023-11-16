@@ -14,7 +14,8 @@ import '../App.css';
 
 function Monthly() {
   const [idDevice, setIdDevice] = useState(Cookies.get('id_device'))
-  const [selectedYear, setSelectedYear] = useState('');
+  const [selectedYear, setSelectedYear] = useState(dayjs(new Date()).$y);
+  const [datePickerValue, setDatePickerValue] = useState(dayjs(new Date()))
   const [hasData, setHasData] = useState(true);
   const [chartData, setChartData] = useState({
     options: {
@@ -46,12 +47,20 @@ function Monthly() {
     const selectedYear = date.$y;
     console.log(selectedYear);
     setSelectedYear(selectedYear);
+    setDatePickerValue(dayjs(new Date(date.$y, date.$M, 1)))
   };
 
-  const options = {
-    mode: 'cors',
-    cache: 'default'
-  }
+  const showPriorYear = () => {
+    setSelectedYear(parseInt(selectedYear) - 1);
+    setDatePickerValue(datePickerValue.add(-1, 'year'))
+  };
+
+  const showNextYear = () => {
+    setSelectedYear(parseInt(selectedYear) + 1);
+    setDatePickerValue(datePickerValue.add(+1, 'year'))
+  };
+
+
 
   function toggleChartVisibility(chartDivName, showChart) {
     var x = document.getElementById(chartDivName);
@@ -65,16 +74,21 @@ function Monthly() {
   }
 
   useEffect(() => {
-    console.log('call fetch monthly')
+
+    dayjs.locale('pt-br');
+    console.log(dayjs(new Date()).$M.toString());
+
+    const options = {
+      mode: 'cors',
+      cache: 'default'
+    }
+
     fetch(`https://smart-water-api.vercel.app/consumptionsByMonth?id_device=${idDevice}`, options)
       .then(result => result.json())
       .then(json => json.filter(item => new Date(item.date_trunc).getFullYear() === parseInt(selectedYear)))
       .then(json => {
-        console.log(json)
           let categories = json.map(filteredData =>  (new Date(filteredData.date_trunc).getMonth())+2);
           let data = json.map(filteredData => filteredData.consumption_amount);
-          console.log('<< ' + data)
-          console.log('<< ' + categories)
           setHasData(data.length>0)
           setChartData({
             options: {
@@ -119,17 +133,19 @@ function Monthly() {
   return (
     <div className="app">
       <div id="select-div" className='d-inline-flex'>
+            <button className='btn' onClick={showPriorYear}><h2>&#8592;</h2></button>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DemoContainer components={['DatePicker']}>
                 <DatePicker 
                   label={'Selecione o ano: '} 
                   views={['year']} 
-                  onYearChange={handleDatePickerChange} 
                   onAccept={handleDatePickerChange}
                   defaultValue={dayjs(new Date())}
+                  value={datePickerValue}
                 />
               </DemoContainer>
             </LocalizationProvider>
+            <button className='btn' onClick={showNextYear}><h2>&#8594;</h2></button>
       </div>
       <div id='chart-div' className='chartDiv'>
           <Chart

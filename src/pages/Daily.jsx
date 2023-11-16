@@ -150,7 +150,6 @@ function Daily() {
                   views={['month', 'year']} 
                   onAccept={handleDatePickerChange}
                   defaultValue={dayjs(new Date())}
-    
                   value={datePickerValue}
                 />
               </DemoContainer>
