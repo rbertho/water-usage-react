@@ -73,6 +73,21 @@ function Monthly() {
     } catch (error) { }
   }
 
+  const monthDescription = [
+    "Janeiro",
+    "Fevereiro",
+    "Março",
+    "Abril",
+    "Maio",
+    "Junho",
+    "Julho",
+    "Agosto",
+    "Setembro",
+    "Outubro",
+    "Novembro",
+    "Dezembro"
+  ];
+
   useEffect(() => {
     const options = {
       mode: 'cors',
@@ -83,7 +98,7 @@ function Monthly() {
       .then(result => result.json())
       .then(json => json.filter(item => new Date(item.date_trunc).getFullYear() === parseInt(selectedYear)))
       .then(json => {
-          let categories = json.map(filteredData =>  (new Date(filteredData.date_trunc).getMonth())+2);
+          let categories = json.map(filteredData =>  monthDescription[(new Date(filteredData.date_trunc).getMonth())+1]);
           let data = json.map(filteredData => filteredData.consumption_amount);
           setHasData(data.length>0)
           setChartData({
