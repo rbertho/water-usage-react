@@ -1,4 +1,3 @@
-import * as React from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -55,7 +54,6 @@ function App() {
   function isLogged(){
     return Cookies.get('id_device') != null;
   }
-  const [idDevice, setIdDevice] = useState(Cookies.get('id_device'))
 
   if (!isLogged()) {
     logout();
