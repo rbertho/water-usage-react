@@ -107,7 +107,7 @@ function Daily() {
         });
       })
       .catch(error => console.error(error));
-  }, [selectedMonth]);
+  }, [selectedMonth, selectedYear]);
 
   toggleChartVisibility('chart-div', hasData)
   toggleChartVisibility('table-div', hasData)
@@ -115,7 +115,7 @@ function Daily() {
   const totalConsumed = chartData.series[0].data.reduce((a, b) => parseFloat(a) + parseFloat(b), 0);
 
   const handleDatePickerChange = (date) => {
-    console.log(date.$y, date.$M+1)
+    console.log('Chamou o handler: ', date.$y, date.$M+1)
     setSelectedYear(date.$y)
     setSelectedMonth(date.$M+1)
     setDatePickerValue(dayjs(new Date(date.$y, date.$M, 1)))
@@ -148,10 +148,9 @@ function Daily() {
                 <DatePicker 
                   label={'Selecione o mês e o ano: '} 
                   views={['month', 'year']} 
-
                   onAccept={handleDatePickerChange}
                   defaultValue={dayjs(new Date())}
-
+    
                   value={datePickerValue}
                 />
               </DemoContainer>
