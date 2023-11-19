@@ -22,29 +22,25 @@ function Daily() {
 
   const [hasData, setHasData] = useState(true);
   const [chartData, setChartData] = useState({
-    options: {
-      chart: {
-        id: 'bar'
+    
+        series: [44, 55, 13, 43, 22],
+        chart: {
+        width: 380,
+        type: 'pie',
       },
-      xaxis: {
-        categories: []
-      }
-    },
-    series: [
-      {
-        name: 'series-1',
-        data: []
-      }
-    ],
-    title: {
-      text: 'Consumo diário em M³',
-      floating: true,
-      offsetY: 330,
-      align: 'center',
-      style: {
-        color: '#444'
-      }
-    }
+      labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+      responsive: [{
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: 200
+          },
+          legend: {
+            position: 'bottom'
+          }
+        }
+      }]
+      
   })
 
   function toggleChartVisibility(chartDivName, showChart) {
@@ -64,46 +60,23 @@ function Daily() {
       cache: 'default'
     }
 
-    fetch(`https://smart-water-api.vercel.app/consumptionsByDevice?id_device=${idDevice}`, options)
+    let prodURL = 'https://smart-water-api.vercel.app/totalByMonth';
+    fetch(`http://localhost:3333/totalByMonth`, options)
       .then(result => result.json())
-      .then(json => json.filter(item => new Date(item.create_time).getMonth() + 1 === parseInt(selectedMonth)))
-      .then(json => json.filter(item => new Date(item.create_time).getFullYear() === parseInt(selectedYear)))
+      .then(json => json.filter(item => new Date(item.month).getMonth() + 1 === parseInt(selectedMonth)))
+      .then(json => json.filter(item => new Date(item.month).getFullYear() === parseInt(selectedYear)))
       .then(json => {
-          let categories = json.map(filteredData =>  new Date(filteredData.create_time).getDate());
+
+        console.log(selectedMonth, ' - ', selectedYear)
+        console.log(json)
+          let categories = json.map(filteredData =>  filteredData.rent_unit);
           let data = json.map(filteredData => filteredData.consumption_amount);
+
+          console.log(categories)
+          console.log(data)
           console.log('filtrou os dados')
           setHasData(data.length>0)
-          setChartData({
-            options: {
-              ...chartData.options,
-              xaxis: {
-                categories: categories
-              },
-              dataLabels: {
-                enabled: false,
-                position: 'bottom', // top, center, bottom
-              },
-              legend: {
-                show: true, // habilita a legenda
-                
-              },
-            },
-            series: [
-              {
-                name: 'Consumo',
-                data: data
-              }
-            ],
-            title: {
-              text: 'Consumo diário em M³',
-              floating: true,
-              offsetY: 330,
-              align: 'center',
-              style: {
-                color: '#444'
-              }
-            }
-        });
+          
       })
       .catch(error => console.error(error));
   }, [selectedMonth, selectedYear]);
@@ -111,8 +84,9 @@ function Daily() {
   toggleChartVisibility('chart-div', hasData)
   toggleChartVisibility('table-div', hasData)
 
-  const totalConsumed = chartData.series[0].data.reduce((a, b) => parseFloat(a) + parseFloat(b), 0);
-
+  console.log(chartData)
+  //const totalConsumed = chartData.series[0].data.reduce((a, b) => parseFloat(a) + parseFloat(b), 0);
+  var totalConsumed = 0
   const handleDatePickerChange = (date) => {
     console.log('Chamou o handler: ', date.$y, date.$M+1)
     setSelectedYear(date.$y)
@@ -160,39 +134,12 @@ function Daily() {
             options={chartData.options}
             series={chartData.series}
             title={chartData.title}
-            type="bar"
+            type="donut"
             width="90%"
             height="400"
           />
       </div>
-      <div id='table-div'>
-          <TableContainer component={Paper}>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Dia</TableCell>
-                  <TableCell align="right">Consumo M³</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {chartData.series[0].data.map((value, index) => (
-                  <TableRow key={index}>
-                    <TableCell component="th" scope="row">
-                      {chartData.options.xaxis.categories[index]}
-                    </TableCell>
-                    <TableCell align="right">{value}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-              <TableFooter>
-                  <TableRow>
-                    <TableCell>Total consumido no mês</TableCell>
-                    <TableCell align="right">{totalConsumed.toFixed(2)}</TableCell>
-                  </TableRow>
-                </TableFooter>
-            </Table>
-          </TableContainer>
-      </div>
+      
     </div>
   );
 }

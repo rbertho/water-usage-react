@@ -56,7 +56,7 @@ function Login() {
                         <button className="btn btn-success mt-3" onClick={showCookieValue}>Login</button>
                     </div>
                     <div className="errordiv" >
-                        <div  className="errortext" id="errordiv">  
+                        <div className="errortext" id="errordiv">  
                         </div>
                     </div>
                     <br />

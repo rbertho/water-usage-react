@@ -172,7 +172,7 @@ function Monthly() {
               <TableHead>
                 <TableRow>
                   <TableCell>Mês</TableCell>
-                  <TableCell align="right">Consumo</TableCell>
+                  <TableCell align="right">Consumo M³</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

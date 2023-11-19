@@ -11,6 +11,8 @@ import Daily from './pages/Daily';
 import About from './pages/About';
 import Monthly from './pages/Monthly';
 
+import TotalConsumption from './pages/TotalConsumption';
+
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -77,23 +79,30 @@ function App() {
             indicatorColor="secondary">
               <Tab label="Diário" {...a11yProps(0)} />
               <Tab label="Mensal" {...a11yProps(1)} />
-              <Tab label="Perfil" {...a11yProps(2)} />
+            if(false){
+              <Tab label="Geral" {...a11yProps(2)} />
+            }
+            
               <Tab label="About" {...a11yProps(3)} />
             </Tabs>
           </Box>
           <CustomTabPanel value={tabValue} index={0}>
-              <div id='App'>
+              <div id='Daily'>
                 <Daily />
               </div>
           </CustomTabPanel>
           <CustomTabPanel value={tabValue} index={1}>
-             <div id='App'>
+             <div id='Monthly'>
                 <Monthly />
               </div>
           </CustomTabPanel>
-          <CustomTabPanel value={tabValue} index={2}>
-            Perfil
-          </CustomTabPanel>
+
+              <CustomTabPanel value={tabValue} index={2}>
+                  <div id='TotalConsumption'>
+                    <TotalConsumption />
+                  </div>
+              </CustomTabPanel>
+          
           <CustomTabPanel value={tabValue} index={3}>
               <div id='About'>
                 <About />
