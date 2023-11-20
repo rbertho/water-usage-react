@@ -23,15 +23,15 @@ import "dayjs/locale/pt-br";
 import "../App.css";
 
 function Daily() {
-  const [idDevice, setIdDevice] = useState(Cookies.get("id_device"));
-
   const [selectedMonth, setSelectedMonth] = useState(dayjs(new Date()).$M + 1);
   const [selectedYear, setSelectedYear] = useState(dayjs(new Date()).$y);
   const [datePickerValue, setDatePickerValue] = useState(dayjs(new Date()));
 
   const [hasData, setHasData] = useState(true);
   const [chartData, setChartData] = useState({
-    options:  { labels: [''] },
+    options:  { 
+        title: { text: "Rateio Mensal", floating: true, offsetY: 10, align: "left", style: {color: "#444" } },
+        labels: [''] },
     series: []
   });
 
@@ -153,6 +153,7 @@ function Daily() {
           type="pie"
           width="98%"
           height="600"
+          margin="auto"
         />
       </div>
       <div id="no-chart-div" className="noChartToShowDiv">
