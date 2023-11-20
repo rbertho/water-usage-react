@@ -55,12 +55,12 @@ function Daily() {
     };
 
     let prodURL = "https://smart-water-api.vercel.app/totalByMonth";
-    fetch(`http://localhost:3333/totalByMonth`, options)
+    fetch(prodURL, options)
       .then((result) => result.json())
       .then((json) =>
         json.filter(
           (item) =>
-            new Date(item.month).getMonth() + 1 === parseInt(selectedMonth)
+            new Date(item.month).getMonth() + 2 === parseInt(selectedMonth)
         )
       )
       .then((json) =>
