@@ -36,12 +36,12 @@ function Daily() {
   });
 
   function toggleChartVisibility(chartDivName, showChart) {
-    var x = document.getElementById(chartDivName);
+    var divToChangeVisibility = document.getElementById(chartDivName);
     try {
       if (showChart) {
-        x.style.display = "block";
+        divToChangeVisibility.style.display = "block";
       } else {
-        x.style.display = "none";
+        divToChangeVisibility.style.display = "none";
       }
     } catch (error) {}
   }
@@ -95,6 +95,7 @@ function Daily() {
   }, [selectedMonth, selectedYear]);
 
   toggleChartVisibility("chart-div", hasData);
+  toggleChartVisibility("no-chart-div", !hasData);
   toggleChartVisibility("table-div", hasData);
 
   //const totalConsumed = chartData.series[0].data.reduce((a, b) => parseFloat(a) + parseFloat(b), 0);
@@ -153,6 +154,9 @@ function Daily() {
           width="90%"
           height="400"
         />
+      </div>
+      <div id="no-chart-div" className="noChartToShowDiv">
+        Período sem dados!
       </div>
     </div>
   );
