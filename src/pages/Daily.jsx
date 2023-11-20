@@ -81,11 +81,9 @@ function Daily() {
               },
               dataLabels: {
                 enabled: false,
-                position: 'bottom', // top, center, bottom
               },
               legend: {
-                show: true, // habilita a legenda
-                
+                show: true, // habilita a legenda 
               },
             },
             series: [
