@@ -151,9 +151,7 @@ function Daily() {
           options={chartData.options}
           series={chartData.series}
           type="pie"
-          width="500"
-          height="1000"
-          margin="auto"
+          width="98%"
         />
       </div>
       <div id="no-chart-div" className="noChartToShowDiv">
